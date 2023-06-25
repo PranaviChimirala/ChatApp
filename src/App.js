@@ -1,12 +1,14 @@
-import React from 'react'
+// eslint-disable-next-line
+import React, {useState} from 'react'
 import {v4 as uuidv4} from 'uuid'
 import ChatInput from './components/ChatInput'
 import ChatMessage from './components/ChatMessage'
+import './App.css'
 
 const userList = ['Alan', 'Bob', 'Carol', 'Dean', 'Elin']
 
 function App() {
-  const [messages, setMessages] = React.useState([])
+  const [messages, setMessages] = useState([])
 
   const handleMessageSend = messageContent => {
     const randomUser = userList[Math.floor(Math.random() * userList.length)]
@@ -15,6 +17,7 @@ function App() {
       content: messageContent,
       username: randomUser,
       likes: 0,
+      mentionedUsers: [],
     }
     setMessages([...messages, newMessage])
   }
@@ -33,20 +36,21 @@ function App() {
   }
 
   return (
-    <div>
+    <div className="chat-app">
       <h1>Chat Application</h1>
-      <ChatInput onMessageSend={handleMessageSend} />
-      <div>
+      <div className="chat-messages">
         {messages.map(message => (
           <ChatMessage
             key={message.id}
             content={message.content}
             username={message.username}
             likes={message.likes}
+            mentionedUsers={message.mentionedUsers}
             onLikeClick={() => handleLikeClick(message.id)}
           />
         ))}
       </div>
+      <ChatInput onMessageSend={handleMessageSend} />
     </div>
   )
 }

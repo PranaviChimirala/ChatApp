@@ -2,17 +2,18 @@
 import React from 'react'
 import './ChatMessage.css'
 
-function ChatMessage({content, username, likes, onLikeClick}) {
-  return (
-    <div className="chat-message">
-      <p className="message-content">{content}</p>
-      <p>Username: {username}</p>
-      <p>Likes: {likes}</p>
-      <button type="button" onClick={onLikeClick} className="button">
-        Like
+const ChatMessage = ({content, username, likes, onLikeClick}) => (
+  <div className="chat-message">
+    <div className="message-header">
+      <span className="username">{username}</span>
+    </div>
+    <div className="message-content">{content}</div>
+    <div className="message-actions">
+      <button type="button" className="like-button" onClick={onLikeClick}>
+        Like ({likes})
       </button>
     </div>
-  )
-}
+  </div>
+)
 
 export default ChatMessage
